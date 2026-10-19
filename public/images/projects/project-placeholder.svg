@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" fill="#0B132B"/>
+  <circle cx="600" cy="310" r="150" fill="#12318A" opacity=".55"/>
+  <rect x="480" y="190" width="240" height="170" rx="20" stroke="#93C5FD" stroke-width="12"/>
+  <path d="m540 280 42 40 78-88" stroke="#60A5FA" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="600" y="500" fill="#E2E8F0" font-family="Arial, sans-serif" font-size="34" text-anchor="middle">Project preview</text>
+</svg>

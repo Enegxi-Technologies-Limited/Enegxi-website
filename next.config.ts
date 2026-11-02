@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     localPatterns: [
       { pathname: "/images/**", search: "" },
       // Keep this version in sync with the query string in src/config/galleryData.ts.
-      { pathname: "/images/gallary/**", search: "?v=4" },
+      { pathname: "/images/gallary/**", search: "?v=5" },
     ],
     remotePatterns: [
       { protocol: "https", hostname: "drive.google.com", pathname: "/**" },

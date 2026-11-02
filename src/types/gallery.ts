@@ -5,6 +5,7 @@ id: string;
 title: string;
 category: GalleryCategoryKey;
 imageUrl: string;
+ mediaType?: 'image' | 'video';
 }
 
 export interface GalleryCategorySection {

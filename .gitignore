@@ -34,9 +34,6 @@ yarn-error.log*
 .env*
 .env.local
 
-# social links
-/src/components/atoms/socialLinks/
-
 # vercel
 .vercel
 

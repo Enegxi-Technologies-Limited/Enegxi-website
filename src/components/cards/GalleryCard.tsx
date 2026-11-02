@@ -28,14 +28,26 @@ return (
     onClick={() => onClick(item)}
     className={`group relative w-full ${heightStyles} rounded-5px overflow-hidden bg-slate-900 cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200/50`}
     >
-    <Image
+    {item.mediaType === 'video' ? (
+        <video
+        src={item.imageUrl.split('?')[0]}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        className="absolute inset-0 h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+        />
+    ) : (
+        <Image
         src={item.imageUrl}
         alt={item.title}
         fill
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-        loading={item.id === 'cs-1' || item.id === 'hk-3' || item.id === 'gr-2' ? 'eager' : 'lazy'}
+        loading={item.id === 'cs-1' || item.id === 'hk-3' || item.id === 'gr-3' ? 'eager' : 'lazy'}
         className="object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
-    />
+        />
+    )}
 
     {/* Dark Gradient Overlay */}
     <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />

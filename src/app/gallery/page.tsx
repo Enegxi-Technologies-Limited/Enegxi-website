@@ -42,13 +42,25 @@ return (
             </button>
 
             <div className="relative w-full h-[60vh] sm:h-[70vh] bg-slate-950">
-                <Image
-                src={selectedItem.imageUrl}
-                alt={selectedItem.title}
-                fill
-                sizes="(max-width: 896px) 100vw, 896px"
-                className="object-contain"
+                {selectedItem.mediaType === 'video' ? (
+                <video
+                    src={selectedItem.imageUrl.split('?')[0]}
+                    controls
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="h-full w-full object-contain"
                 />
+                ) : (
+                <Image
+                    src={selectedItem.imageUrl}
+                    alt={selectedItem.title}
+                    fill
+                    sizes="(max-width: 896px) 100vw, 896px"
+                    className="object-contain"
+                />
+                )}
             </div>
 
             <div className="p-6 bg-slate-900 text-white flex items-center justify-between">

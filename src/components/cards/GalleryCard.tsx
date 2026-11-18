@@ -44,7 +44,7 @@ return (
         alt={item.title}
         fill
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-        loading={item.id === 'cs-1' || item.id === 'hk-3' || item.id === 'gr-3' ? 'eager' : 'lazy'}
+        loading={item.id === 'cs-1' || item.id === 'cs-2' || item.id === 'hk-3' || item.id === 'gr-3' ? 'eager' : 'lazy'}
         className="object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
         />
     )}

@@ -7,15 +7,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Badge } from '@/components/atoms/Badge';
 import { CourseApplicationForm } from '@/components/forms/CourseApplicationForm';
 import type { Course } from '@/types';
-import { 
-FiClock, 
-FiCalendar, 
-FiBarChart2, 
-FiCheckCircle, 
-FiChevronDown, 
+import {
+FiClock,
+FiBarChart2,
+FiCheckCircle,
+FiChevronDown,
 FiArrowLeft,
 FiBookOpen,
-FiLayers
+FiLayers,
 } from 'react-icons/fi';
 
 interface CourseDetailClientProps {
@@ -31,19 +30,20 @@ const toggleModule = (index: number) => {
 
 const outline = course.outline || [];
 const skills = course.skills || [];
-const prerequisites = course.prerequisites || ['Basic computer literacy', 'Passion to learn and build real projects'];
+const prerequisites = course.prerequisites || [
+    'Basic computer literacy',
+    'Passion to learn and build real projects',
+];
 
 return (
-    <main className="min-h-screen bg-slate-50/50 pb-20">
-    
+    <div className="min-h-screen bg-slate-50/50 pb-20">
     {/* 1. HERO HEADER */}
     <section className="relative flex min-h-[calc(100svh-5rem)] items-center overflow-hidden bg-[#181A1D] px-4 py-14 text-white sm:px-6 sm:py-20 lg:px-8">
-        
-        {/* Hero Background Image */}
+        {/* Hero Background Image (decorative, so empty alt) */}
         <div className="absolute inset-0 z-0">
         <Image
             src="/images/background-pictures/coursedetailsbg.png"
-            alt="Course background design"
+            alt=""
             fill
             priority
             className="object-cover opacity-15 mix-blend-luminosity"
@@ -55,13 +55,16 @@ return (
         {/* Accent Glow */}
         <div className="absolute top-0 right-1/4 z-0 w-96 h-96 bg-[#0528E1]/20 rounded-full blur-3xl pointer-events-none" />
 
-        <motion.div 
-        className="relative z-10 mx-auto w-full max-w-7xl space-y-6" 
-        initial="hidden" 
-        animate="visible" 
-        variants={{ 
-            hidden: { opacity: 0 }, 
-            visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } } 
+        <motion.div
+        className="relative z-10 mx-auto w-full max-w-7xl space-y-6"
+        initial="hidden"
+        animate="visible"
+        variants={{
+            hidden: { opacity: 0 },
+            visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+            },
         }}
         >
         <Link
@@ -72,11 +75,15 @@ return (
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <motion.div 
-            className="lg:col-span-8 space-y-4" 
-            variants={{ 
-                hidden: { opacity: 0, x: -70 }, 
-                visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } } 
+            <motion.div
+            className="lg:col-span-8 space-y-4"
+            variants={{
+                hidden: { opacity: 0, x: -70 },
+                visible: {
+                opacity: 1,
+                x: 0,
+                transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+                },
             }}
             >
             <div className="flex flex-wrap items-center gap-2">
@@ -104,17 +111,11 @@ return (
                 {course.description}
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-800/80 max-w-xl">
+            <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-800/80 max-w-xl">
                 {course.duration && (
                 <div className="flex items-center gap-2 text-slate-300 text-xs sm:text-sm font-medium">
                     <FiClock className="text-[#0528E1] text-base shrink-0" />
                     <span>{course.duration}</span>
-                </div>
-                )}
-                {course.schedule && (
-                <div className="flex items-center gap-2 text-slate-300 text-xs sm:text-sm font-medium">
-                    <FiCalendar className="text-[#0528E1] text-base shrink-0" />
-                    <span>{course.schedule}</span>
                 </div>
                 )}
                 {course.level && (
@@ -132,14 +133,15 @@ return (
     {/* 2. MAIN CONTENT GRID */}
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-        
         {/* Left Column: Details & Syllabus */}
         <div className="lg:col-span-7 space-y-10">
             {skills.length > 0 && (
             <div className="bg-white rounded-5px p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-4">
                 <div className="flex items-center gap-2 text-[#0B132B]">
                 <FiLayers className="text-[#0528E1] text-xl" />
-                <h2 className="text-lg sm:text-xl font-bold">Skills & Technologies You Will Master</h2>
+                <h2 className="text-lg sm:text-xl font-bold">
+                    Skills &amp; Technologies You Will Master
+                </h2>
                 </div>
                 <div className="flex flex-wrap gap-2 pt-2">
                 {skills.map((skill, idx) => (
@@ -158,7 +160,9 @@ return (
             <div className="space-y-4">
                 <div className="flex items-center gap-2 text-[#0B132B]">
                 <FiBookOpen className="text-[#0528E1] text-xl" />
-                <h2 className="text-xl sm:text-2xl font-bold">Curriculum & Module Outline</h2>
+                <h2 className="text-xl sm:text-2xl font-bold">
+                    Curriculum &amp; Module Outline
+                </h2>
                 </div>
 
                 <div className="space-y-3">
@@ -197,7 +201,9 @@ return (
                             transition={{ duration: 0.25, ease: 'easeInOut' }}
                             >
                             <div className="px-5 pb-5 pt-1 border-t border-slate-100 text-slate-600 text-xs sm:text-sm space-y-2">
-                                <p className="text-slate-700 leading-relaxed">{item.detail}</p>
+                                <p className="text-slate-700 leading-relaxed">
+                                {item.detail}
+                                </p>
                             </div>
                             </motion.div>
                         )}
@@ -210,7 +216,9 @@ return (
             )}
 
             <div className="bg-white rounded-5px p-6 sm:p-8 shadow-sm border border-slate-200/80 space-y-4">
-            <h3 className="text-base sm:text-lg font-bold text-[#0B132B]">Prerequisites & Eligibility</h3>
+            <h2 className="text-base sm:text-lg font-bold text-[#0B132B]">
+                Prerequisites &amp; Eligibility
+            </h2>
             <ul className="space-y-2 text-xs sm:text-sm text-slate-700">
                 {prerequisites.map((req, idx) => (
                 <li key={idx} className="flex items-start gap-2">
@@ -226,12 +234,15 @@ return (
         <div className="lg:col-span-5 sticky top-24">
             <div className="bg-white rounded-5px p-6 sm:p-8 shadow-md border border-slate-200/80 space-y-5">
             <div className="space-y-1.5 border-b border-slate-100 pb-4">
-                <Badge variant="outline" className="bg-blue-50 text-[#0528E1] border-blue-200 text-[10px] font-bold">
+                <Badge
+                variant="outline"
+                className="bg-blue-50 text-[#0528E1] border-blue-200 text-[10px] font-bold"
+                >
                 ENROLLMENT OPEN
                 </Badge>
-                <h3 className="text-xl font-extrabold text-[#0B132B]">
+                <h2 className="text-xl font-extrabold text-[#0B132B]">
                 Apply for {course.title}
-                </h3>
+                </h2>
                 <p className="text-slate-500 text-xs">
                 Fill out the form below to secure your slot for the upcoming cohort.
                 </p>
@@ -240,9 +251,8 @@ return (
             <CourseApplicationForm courseType={course.trackKey} />
             </div>
         </div>
-
         </div>
     </section>
-    </main>
+    </div>
 );
 };

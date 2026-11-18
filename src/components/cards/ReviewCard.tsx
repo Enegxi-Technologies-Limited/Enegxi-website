@@ -1,17 +1,15 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Review } from '@/types/review';
 import { Badge } from '@/components/atoms/Badge';
 import { FiStar, FiCheckCircle } from 'react-icons/fi';
 
 interface ReviewCardProps {
 review: Review;
-index?: number;
 }
 
-export const ReviewCard: React.FC<ReviewCardProps> = ({ review, index = 0 }) => {
+export const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
 // Generate initials for name badge
 const initials = review.name
     ? review.name
@@ -23,13 +21,7 @@ const initials = review.name
     : 'EG';
 
 return (
-    <motion.div
-    layout
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, scale: 0.95 }}
-    transition={{ duration: 0.35, delay: Math.min(index * 0.05, 0.3) }}
-    whileHover={{ y: -6, transition: { duration: 0.2 } }}
+    <div
     className="bg-white rounded-5px p-6 border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-blue-200 transition-all flex flex-col justify-between space-y-5 relative overflow-hidden group"
     >
     {/* Top Accent Hover Bar */}
@@ -85,6 +77,6 @@ return (
         </span>
         )}
     </div>
-    </motion.div>
+    </div>
 );
 };

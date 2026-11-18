@@ -50,7 +50,7 @@ return (
         </div>
         <div>
         <span className="block text-[11px] font-bold uppercase text-slate-400">Duration</span>
-        <span className="text-sm font-extrabold text-[#0B132B]">12 – 16 Weeks</span>
+        <span className="text-sm font-extrabold text-[#0B132B]">12 – 24 Weeks</span>
         </div>
         <div>
         <span className="block text-[11px] font-bold uppercase text-slate-400">Format</span>

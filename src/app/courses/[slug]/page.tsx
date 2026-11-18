@@ -1,7 +1,12 @@
-import React from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { coursesData } from '@/config/coursesData';
+import {
+SITE_NAME,
+SITE_URL,
+buildPageMetadata,
+truncate,
+} from '@/config/seo';
 import { CourseDetailClient } from './CourseDetailClient';
 
 interface PageProps {
@@ -13,21 +18,19 @@ const { slug } = await params;
 const course = coursesData.find((item) => item.slug === slug);
 
 if (!course) {
-    return { title: 'Course not found' };
+    return { title: 'Course not found', robots: { index: false } };
 }
 
-const description = `${course.description} ${course.duration} | ${course.level} | Enegxi Institute.`;
+const details = [course.duration, course.level].filter(Boolean).join(' | ');
+const description = truncate(
+    [course.description, details].filter(Boolean).join(' ')
+);
 
-return {
+return buildPageMetadata({
     title: `${course.title} Course`,
     description,
-    alternates: { canonical: `/courses/${course.slug}` },
-    openGraph: {
-        title: `${course.title} Course | Enegxi Institute`,
-        description,
-        type: 'article',
-    },
-};
+    path: `/courses/${course.slug}`,
+});
 }
 
 export async function generateStaticParams() {
@@ -37,8 +40,8 @@ return coursesData.map((course) => ({
 }
 
 export default async function CourseDetailPage({ params }: PageProps) {
-const resolvedParams = await params;
-const course = coursesData.find((item) => item.slug === resolvedParams.slug);
+const { slug } = await params;
+const course = coursesData.find((item) => item.slug === slug);
 
 if (!course) {
     notFound();
@@ -49,24 +52,26 @@ const structuredData = {
     '@type': 'Course',
     name: course.title,
     description: course.description,
-    courseCode: course.slug,
+    url: `${SITE_URL}/courses/${course.slug}`,
     educationalLevel: course.level,
     teaches: course.skills,
+    inLanguage: 'en',
     provider: {
-        '@type': 'Organization',
-        name: 'Enegxi Institute',
+    '@type': 'EducationalOrganization',
+    name: SITE_NAME,
+    url: SITE_URL,
     },
 };
 
 return (
     <>
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-                __html: JSON.stringify(structuredData).replace(/</g, '\\u003c'),
-            }}
-        />
-        <CourseDetailClient course={course} />
+    <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+        __html: JSON.stringify(structuredData).replace(/</g, '\\u003c'),
+        }}
+    />
+    <CourseDetailClient course={course} />
     </>
 );
 }

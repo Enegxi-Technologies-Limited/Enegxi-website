@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion, useAnimationFrame, useMotionValue } from 'framer-motion';
 import { Badge } from '@/components/atoms/Badge';
 import { Button } from '@/components/atoms/Button';
 import { ReviewCard } from '@/components/cards/ReviewCard';
@@ -17,43 +16,14 @@ interface ReviewSectionProps {
 
 interface SpotlightCardProps {
   review: Review;
-  index: number;
-  containerRef: React.RefObject<HTMLDivElement | null>;
-  isDesktop: boolean;
 }
 
-const SpotlightCard: React.FC<SpotlightCardProps> = ({ review, index, containerRef, isDesktop }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [styleState, setStyleState] = useState({ blur: 0, scale: 1, opacity: 1 });
-
-  useAnimationFrame(() => {
-    if (!isDesktop || !cardRef.current || !containerRef.current) return;
-
-    const cardRect = cardRef.current.getBoundingClientRect();
-    const containerRect = containerRef.current.getBoundingClientRect();
-    const cardCenter = cardRect.left + cardRect.width / 2;
-    const containerCenter = containerRect.left + containerRect.width / 2;
-    const distance = Math.abs(cardCenter - containerCenter);
-    const normalized = Math.min(distance / Math.max(containerRect.width / 2, 1), 1);
-
-    setStyleState({
-      blur: Number((normalized * 3.5).toFixed(2)),
-      scale: Number((1.04 - normalized * 0.12).toFixed(3)),
-      opacity: Number((1 - normalized * 0.45).toFixed(2)),
-    });
-  });
-
+const SpotlightCard: React.FC<SpotlightCardProps> = ({ review }) => {
   return (
     <div
-      ref={cardRef}
-      style={{
-        filter: isDesktop ? `blur(${styleState.blur}px)` : 'none',
-        transform: isDesktop ? `scale(${styleState.scale})` : 'scale(1)',
-        opacity: isDesktop ? styleState.opacity : 1,
-      }}
-      className="shrink-0 w-77.5 sm:w-95 py-4 transition-all duration-100 ease-out"
+      className="w-77.5 shrink-0 py-4 sm:w-95"
     >
-      <ReviewCard review={review} index={index} />
+      <ReviewCard review={review} />
     </div>
   );
 };
@@ -61,19 +31,6 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({ review, index, containerR
 export const ReviewSection: React.FC<ReviewSectionProps> = ({ initialReviews = EMPTY_REVIEWS }) => {
   const [reviews, setReviews] = useState<Review[]>(initialReviews);
   const [isLoading, setIsLoading] = useState(initialReviews.length === 0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(min-width: 768px)');
-    const updateDesktopMode = () => setIsDesktop(mediaQuery.matches);
-    updateDesktopMode();
-    mediaQuery.addEventListener('change', updateDesktopMode);
-    return () => mediaQuery.removeEventListener('change', updateDesktopMode);
-  }, []);
 
   useEffect(() => {
     if (initialReviews.length > 0) return;
@@ -100,16 +57,6 @@ export const ReviewSection: React.FC<ReviewSectionProps> = ({ initialReviews = E
     return () => { cancelled = true; };
   }, [initialReviews]);
 
-  useAnimationFrame((_, delta) => {
-    if (isPaused || reviews.length === 0) return;
-    let currentX = x.get() - 0.045 * delta;
-    if (trackRef.current) {
-      const halfWidth = trackRef.current.scrollWidth / 2;
-      if (halfWidth > 0 && Math.abs(currentX) >= halfWidth) currentX += halfWidth;
-    }
-    x.set(currentX);
-  });
-
   if (isLoading) {
     return (
       <section className="py-20 bg-slate-50/50 border-y border-slate-200/80 overflow-hidden">
@@ -128,8 +75,8 @@ export const ReviewSection: React.FC<ReviewSectionProps> = ({ initialReviews = E
 
   if (reviews.length === 0) return null;
 
-  const repeatCount = Math.max(1, Math.ceil(8 / reviews.length));
-  const baseList = Array.from({ length: repeatCount }, () => reviews).flat();
+  // Keep the homepage carousel lightweight even when the sheet contains many reviews.
+  const baseList = reviews.slice(0, 8);
   const marqueeItems = [...baseList, ...baseList];
 
   return (
@@ -155,18 +102,15 @@ export const ReviewSection: React.FC<ReviewSectionProps> = ({ initialReviews = E
       </div>
 
       <div
-        ref={containerRef}
-        onMouseEnter={() => { if (isDesktop) setIsPaused(true); }}
-        onMouseLeave={() => { if (isDesktop) setIsPaused(false); }}
         className="relative w-full overflow-hidden py-6 cursor-grab active:cursor-grabbing"
       >
         <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-linear-to-r from-slate-50 via-slate-50/80 to-transparent z-20 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-linear-to-l from-slate-50 via-slate-50/80 to-transparent z-20 pointer-events-none" />
-        <motion.div ref={trackRef} style={{ x }} className="flex items-center gap-6 w-max">
+        <div className="review-marquee flex w-max items-center gap-6">
           {marqueeItems.map((review, index) => (
-            <SpotlightCard key={`${review.id}-${index}`} review={review} index={index} containerRef={containerRef} isDesktop={isDesktop} />
+            <SpotlightCard key={`${review.id}-${index}`} review={review} />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

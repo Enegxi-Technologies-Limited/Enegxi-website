@@ -60,7 +60,7 @@ return (
     <section className="relative w-full overflow-hidden">
     {/* Background Split: Edge-to-edge Dark Top + Light Blue Gradient Bottom */}
     <div className="absolute inset-0 flex flex-col pointer-events-none z-0">
-        <div className="h-[352px] w-full bg-[#181A1D] sm:h-[416px]" />
+        <div className="h-88 w-full bg-[#181A1D] sm:h-104" />
         <div className="flex-1 w-full bg-linear-to-br from-[#E2EBF7] via-[#D0E0F7] to-[#B5CEF3]" />
     </div>
 
@@ -71,7 +71,7 @@ return (
         <div className="lg:col-span-6 flex flex-col">
             
             {/* 1. DARK COMPARTMENT: Badge at top, H2 at base */}
-            <div className="flex h-[320px] flex-col justify-between pb-12 pt-1 sm:h-[360px] sm:pb-14">
+            <div className="flex h-80 flex-col justify-between pb-12 pt-1 sm:h-90 sm:pb-14">
             <div>
                 <Badge variant="outline" className="bg-white/10 border-white/20 text-white text-[10px] px-3 py-1 font-bold tracking-wider">
                 CONTACT US
@@ -191,9 +191,9 @@ return (
 
             {/* Horizontal line - Arrow - Horizontal line */}
             <div className="flex items-center justify-center gap-2 w-full pt-1">
-                <div className="h-[1px] bg-slate-200 flex-1" />
+                <div className="h-px bg-slate-200 flex-1" />
                 <PiArrowBendLeftDownBold className="text-slate-900 text-xl shrink-0" />
-                <div className="h-[1px] bg-slate-200 flex-1" />
+                <div className="h-px bg-slate-200 flex-1" />
             </div>
             </div>
 

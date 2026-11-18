@@ -28,3 +28,88 @@ body {
 .modal-scrollbar-hidden::-webkit-scrollbar {
   display: none;
 }
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+}
+
+/* Transform only, so page content is never invisible while loading */
+@keyframes page-in {
+  from {
+    transform: translateY(10px);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.page-in {
+  animation: page-in 0.4s ease-out both;
+}
+
+@keyframes hero-background-cycle {
+  0%,
+  16.667%,
+  90.476%,
+  100% {
+    opacity: 1;
+  }
+  23.81%,
+  83.333% {
+    opacity: 0;
+  }
+}
+
+.hero-background-slide {
+  animation: hero-background-cycle 21s ease-in-out infinite;
+}
+
+.hero-background-slide--second {
+  animation-delay: -14s;
+}
+
+.hero-background-slide--third {
+  animation-delay: -7s;
+}
+
+@keyframes reviews-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.review-marquee {
+  animation: reviews-marquee 60s linear infinite;
+}
+
+.review-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  .page-in,
+  .review-marquee {
+    animation: none;
+  }
+
+  .hero-background-slide {
+    animation: none;
+    opacity: 0;
+  }
+
+  .hero-background-slide--first {
+    opacity: 1;
+  }
+}

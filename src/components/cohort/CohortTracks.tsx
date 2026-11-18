@@ -4,7 +4,7 @@ import React from 'react';
 import { Badge } from '@/components/atoms/Badge';
 import { Button } from '@/components/atoms/Button';
 import type { Course, CourseTypeKey } from '@/types';
-import { FiClock, FiCalendar, FiArrowRight } from 'react-icons/fi';
+import { FiClock, FiArrowRight } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 
 interface CohortTracksProps {
@@ -61,11 +61,6 @@ return (
                 {course.duration && (
                 <span className="flex items-center gap-1">
                     <FiClock className="text-[#0528E1]" /> {course.duration}
-                </span>
-                )}
-                {course.schedule && (
-                <span className="flex items-center gap-1">
-                    <FiCalendar className="text-[#0528E1]" /> {course.schedule}
                 </span>
                 )}
             </div>

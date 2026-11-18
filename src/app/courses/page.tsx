@@ -1,25 +1,21 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import { coursesData } from '@/config/coursesData';
+import { SITE_URL, buildPageMetadata } from '@/config/seo';
 import CoursesClient from './CoursesClient';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Tech Courses and Career Training',
-  alternates: { canonical: '/courses' },
   description:
-    'Explore Enegxi Institute training in frontend, backend, full stack, mobile development, product management, and web design. Compare course duration, skills, and prerequisites.',
-  openGraph: {
-    title: 'Tech Courses and Career Training | Enegxi Institute',
-    description:
-      'Explore practical technology courses at Enegxi Institute and find the right track for your career goals.',
-    type: 'website',
-  },
-};
+    "Explore Enegxi Institute's frontend, backend, full stack, mobile, product management and web design courses. Compare duration, skills and prerequisites.",
+  path: '/courses',
+});
 
 export default function CoursesPage() {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
     name: 'Tech Courses and Career Training',
+    url: `${SITE_URL}/courses`,
     description:
       'Practical technology courses from Enegxi Institute, including frontend, backend, full stack, mobile development, product management, and web design.',
     mainEntity: {
@@ -27,13 +23,8 @@ export default function CoursesPage() {
       itemListElement: coursesData.map((course, index) => ({
         '@type': 'ListItem',
         position: index + 1,
-        item: {
-          '@type': 'Course',
-          name: course.title,
-          description: course.description,
-          courseCode: course.slug,
-          provider: { '@type': 'Organization', name: 'Enegxi Institute' },
-        },
+        url: `${SITE_URL}/courses/${course.slug}`,
+        name: course.title,
       })),
     },
   };

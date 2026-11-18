@@ -87,12 +87,12 @@ export const Dropdown = React.forwardRef<HTMLInputElement, DropdownProps>(
         type="hidden"
         ref={ref}
         name={name}
-        id={elementId}
         value={currentValue}
         />
 
         <div className="relative mt-1">
         <button
+            id={elementId}
             type="button"
             onClick={() => setIsOpen((prev) => !prev)}
             className={cn(
